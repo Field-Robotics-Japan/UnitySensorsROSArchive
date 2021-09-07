@@ -15,15 +15,14 @@ using RosMessageTypes.Sensor;
 public class RGBCameraPublisher : MonoBehaviour
 {
 
-  [SerializeField] private string _rawTopicName        = "image/raw";
-  [SerializeField] private string _compressedTopicName = "image/compressed";
+  [SerializeField] private string _topicName = "image";
   [SerializeField] private string _frameId   = "camera";
     
   private float _timeElapsed = 0f;
   private float _timeStamp   = 0f;
 
   private ROSConnection _ros;
-  private ImageMsg _message;    
+  private CompressedImageMsg _message;    
 
   private FRJ.Sensor.RGBCamera _camera;
     
@@ -35,14 +34,13 @@ public class RGBCameraPublisher : MonoBehaviour
 
     // setup ROS
     this._ros = ROSConnection.instance;
-    this._ros.RegisterPublisher<ImageMsg>(this._rawTopicName);
+    this._topicName += "/compressed";
+    this._ros.RegisterPublisher<CompressedImageMsg>(this._topicName);
 
     // setup ROS Message
-    this._message = new ImageMsg();
+    this._message = new CompressedImageMsg();
     this._message.header.frame_id = this._frameId;
-    this._message.height = this._camera.height;
-    this._message.width  = this._camera.width;
-    this._message.encoding = "jpeg";
+    this._message.format = "jpeg";
   }
 
   void Update()
@@ -56,6 +54,7 @@ public class RGBCameraPublisher : MonoBehaviour
       this._message.header.stamp.sec = sec;
       this._message.header.stamp.nanosec = nanosec;
       this._message.data = this._camera.data;
+      this._ros.Send(this._topicName, this._message);
 
       // Update time
       this._timeElapsed = 0;
