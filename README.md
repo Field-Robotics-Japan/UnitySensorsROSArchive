@@ -7,6 +7,7 @@ Sensor tools for Robotics connecting with ROS and ROS2 environment.
 ### Depend Packages
 - Burst : >=1.4.8
 - Mathematics : >=1.2.1
+- ROS TCP Connector : >=v0.5.0
 - UnitySensors : >=0.1.0
 
 # Installation
@@ -15,6 +16,7 @@ Sensor tools for Robotics connecting with ROS and ROS2 environment.
 2. Enter the following each URLs, respectively.
    - com.unity.burst
    - com.unity.mathematics
+   - https://github.com/Field-Robotics-Japan/UnitySensors.git
    - https://github.com/Field-Robotics-Japan/UnitySensors.git
 3. Click `Install` buton on the right bottom corner for each depend packages, respectively.
 
