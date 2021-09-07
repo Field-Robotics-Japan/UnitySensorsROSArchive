@@ -16,7 +16,7 @@ Sensor tools for Robotics connecting with ROS and ROS2 environment.
 2. Enter the following each URLs, respectively.
    - com.unity.burst
    - com.unity.mathematics
-   - https://github.com/Field-Robotics-Japan/UnitySensors.git
+   - https://github.com/Unity-Technologies/ROS-TCP-Connector.git?path=/com.unity.robotics.ros-tcp-connector
    - https://github.com/Field-Robotics-Japan/UnitySensors.git
 3. Click `Install` buton on the right bottom corner for each depend packages, respectively.
 
