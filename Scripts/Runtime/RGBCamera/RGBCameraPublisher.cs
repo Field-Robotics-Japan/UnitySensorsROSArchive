@@ -43,22 +43,23 @@ public class RGBCameraPublisher : MonoBehaviour
     this._message.format = "jpeg";
   }
 
-  void Update()
-  {
-    this._timeElapsed += Time.deltaTime;
+    void Update()
+    {
+        this._timeElapsed += Time.deltaTime;
 
-    if(this._timeElapsed > (1f/this._camera.scanRate)) {
-      // Update ROS Message
-      uint sec = (uint)Math.Truncate(this._timeStamp);
-      uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
-      this._message.header.stamp.sec = sec;
-      this._message.header.stamp.nanosec = nanosec;
-      this._message.data = this._camera.data;
-      this._ros.Send(this._topicName, this._message);
+        if(this._timeElapsed > (1f/this._camera.scanRate))
+        {
+            // Update ROS Message
+            uint sec = (uint)Math.Truncate(this._timeStamp);
+            uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
+            this._message.header.stamp.sec = sec;
+            this._message.header.stamp.nanosec = nanosec;
+            this._message.data = this._camera.data;
+            this._ros.Send(this._topicName, this._message);
 
-      // Update time
-      this._timeElapsed = 0;
-      this._timeStamp = Time.time;
+            // Update time
+            this._timeElapsed = 0;
+            this._timeStamp = Time.time;
+        }
     }
-  }
 }
