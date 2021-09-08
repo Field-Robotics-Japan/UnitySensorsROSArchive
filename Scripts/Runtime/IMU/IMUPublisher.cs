@@ -45,6 +45,10 @@ public class IMUPublisher : MonoBehaviour
             // Update time
             this._timeElapsed = 0;
             this._timeStamp = Time.time;
+
+            // Update IMU data
+            this._imu.UpdateIMU();
+            
             // Update ROS Message
             uint sec = (uint)Math.Truncate(this._timeStamp);
             uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
