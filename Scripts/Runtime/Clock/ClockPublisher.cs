@@ -33,7 +33,7 @@ public class ClockPublisher : MonoBehaviour
         this._timeStamp = Time.time;
         uint sec = (uint)Math.Truncate(this._timeStamp);
         uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
-        this._message.clock.sec = sec;
+        this._message.clock.sec = (int)sec;
         this._message.clock.nanosec = nanosec;
         this._ros.Send(this._topicName, this._message);
     }

@@ -52,7 +52,7 @@ public class IMUPublisher : MonoBehaviour
             // Update ROS Message
             uint sec = (uint)Math.Truncate(this._timeStamp);
             uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
-            this._message.header.stamp.sec = sec;
+            this._message.header.stamp.sec = (int)sec;
             this._message.header.stamp.nanosec = nanosec;
             QuaternionMsg orientation =
                 new QuaternionMsg(this._imu.GeometryQuaternion.x,

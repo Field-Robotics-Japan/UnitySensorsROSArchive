@@ -51,7 +51,7 @@ public class GPSPublisher : MonoBehaviour
             // Update ROS Message
             uint sec = (uint)Math.Truncate(this._timeStamp);
             uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
-            this._message.header.stamp.sec = sec;
+            this._message.header.stamp.sec = (int)sec;
             this._message.header.stamp.nanosec = nanosec;
             this._message.sentence = this._gps.gpgga;
 

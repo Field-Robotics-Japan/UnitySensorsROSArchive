@@ -75,13 +75,13 @@ public class VLP16Publisher : MonoBehaviour
       uint sec = (uint)Math.Truncate(this._timeStamp);
       uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
       this._serializer.job.timeStamp = this._timeStamp;
-      this._message.header.stamp.sec = sec;
+      this._message.header.stamp.sec = (int)sec;
       this._message.header.stamp.nanosec = nanosec;
       for(int i=0; i<this._message.packets.Length; i++)
       {
         this._message.packets[i].data =
             this._serializer.packets.GetSubArray(i*1206,1206).ToArray();
-        this._message.packets[i].stamp.sec = sec;
+        this._message.packets[i].stamp.sec = (int)sec;
         this._message.packets[i].stamp.nanosec = nanosec;
       }
       _ros.Send(this._topicName, this._message);
