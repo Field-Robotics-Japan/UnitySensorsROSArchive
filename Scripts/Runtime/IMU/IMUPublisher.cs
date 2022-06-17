@@ -51,7 +51,11 @@ public class IMUPublisher : MonoBehaviour
             this._imu.UpdateIMU();
 
             // Update ROS Message
+# if ROS2
+            int sec = (int)Math.Truncate(this._timeStamp);
+# else
             uint sec = (uint)Math.Truncate(this._timeStamp);
+# endif
             uint nanosec = (uint)((this._timeStamp - sec) * 1e+9);
             this._message.header.stamp.sec = sec;
             this._message.header.stamp.nanosec = nanosec;
