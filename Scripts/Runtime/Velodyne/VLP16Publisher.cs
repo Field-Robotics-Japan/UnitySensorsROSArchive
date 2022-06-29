@@ -72,7 +72,11 @@ public class VLP16Publisher : MonoBehaviour
 
     if(this._timeElapsed > (1f/this._lidar.scanRate)) {
       // Update ROS Message
+# if ROS2
+      int sec = (int)Math.Truncate(this._timeStamp);
+# else
       uint sec = (uint)Math.Truncate(this._timeStamp);
+# endif
       uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
       this._serializer.job.timeStamp = this._timeStamp;
       this._message.header.stamp.sec = sec;
