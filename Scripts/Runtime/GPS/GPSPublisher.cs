@@ -9,8 +9,17 @@ using RosMessageTypes.Nmea;
 [RequireComponent(typeof(FRJ.Sensor.GPS))]
 public class GPSPublisher : MonoBehaviour
 {
+    private enum FORMAT_TYPE
+    {
+        GPRMC,
+        GPGGA,
+        GPGSA,
+        GPVTG
+    }
+
     [SerializeField] private string _topicName = "nmea/sentence";
     [SerializeField] private string _frameId   = "nmea_link";
+    [SerializeField] private FORMAT_TYPE _formatType;
     
     private float _timeElapsed = 0f;
     private float _timeStamp   = 0f;
@@ -57,7 +66,25 @@ public class GPSPublisher : MonoBehaviour
             uint nanosec = (uint)( (this._timeStamp - sec)*1e+9 );
             this._message.header.stamp.sec = sec;
             this._message.header.stamp.nanosec = nanosec;
-            this._message.sentence = this._gps.gpgga;
+
+            switch (_formatType)
+            {
+                case FORMAT_TYPE.GPRMC:
+                    this._message.sentence = this._gps.gprmc;
+                    break;
+                case FORMAT_TYPE.GPGGA:
+                    this._message.sentence = this._gps.gpgga;
+                    break;
+                case FORMAT_TYPE.GPGSA:
+                    this._message.sentence = this._gps.gpgsa;
+                    break;
+                case FORMAT_TYPE.GPVTG:
+                    this._message.sentence = this._gps.gpvtg;
+                    break;
+                default:
+                    this._message.sentence = "";
+                    break;
+            }
 
             this._ros.Send(this._topicName, this._message);
         }
