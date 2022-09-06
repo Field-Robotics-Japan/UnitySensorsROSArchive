@@ -55,8 +55,8 @@ namespace FRJ.Sensor
                 this._message_pc2.header.frame_id = _pointcloud.frameId;
                 this._message_pc2.height = 1;
                 this._message_pc2.width = (uint)(_cam.resolution.x*_cam.resolution.y);
-                this._message_pc2.fields = new PointFieldMsg[6];
-                for (int i = 0; i < 6; i++)
+                this._message_pc2.fields = new PointFieldMsg[7];
+                for (int i = 0; i < 7; i++)
                 {
                     this._message_pc2.fields[i] = new PointFieldMsg();
                 }
@@ -81,9 +81,9 @@ namespace FRJ.Sensor
                 this._message_pc2.fields[5].name = "b";
                 this._message_pc2.fields[5].offset = 14;
                 this._message_pc2.fields[5].datatype = 2;
-                this._message_pc2.fields[5].name = "a";
-                this._message_pc2.fields[5].offset = 15;
-                this._message_pc2.fields[5].datatype = 2;
+                this._message_pc2.fields[6].name = "a";
+                this._message_pc2.fields[6].offset = 15;
+                this._message_pc2.fields[6].datatype = 2;
                 this._message_pc2.is_bigendian = false;
                 this._message_pc2.point_step = 16;
                 this._message_pc2.row_step = (uint)(_cam.resolution.x * _cam.resolution.y * 16);
