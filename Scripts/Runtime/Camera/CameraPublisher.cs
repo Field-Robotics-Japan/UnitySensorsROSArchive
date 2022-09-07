@@ -23,11 +23,11 @@ namespace FRJ.Sensor
         [SerializeField] private TopicSetting _pointcloud;
 
 
-
         private Camera _cam;
 
         private ROSConnection _ros;
         private PointCloud2Msg _message_pc2;
+        private CompressedImageMsg _message_img;
 
         private float _timeElapsed = 0f;
         private float _timeStamp = 0f;
@@ -81,6 +81,13 @@ namespace FRJ.Sensor
                 this._message_pc2.data = new byte[_cam.resolution.x * _cam.resolution.y * 16];
                 this._message_pc2.is_dense = true;
             }
+            if (_image.publish)
+            {
+                this._ros.RegisterPublisher<CompressedImageMsg>(this._image.topicName+"/compressed");
+                this._message_img = new CompressedImageMsg();
+                this._message_img.header.frame_id = this._image.frameId;
+                this._message_img.format = "jpeg";
+            }
         }
 
         private void Update()
@@ -102,6 +109,14 @@ namespace FRJ.Sensor
                     this._message_pc2.header.stamp.nanosec = nanosec;
                     this._message_pc2.data = _cam.data_pc;
                     _ros.Send(this._pointcloud.topicName, this._message_pc2);
+                }
+
+                if (this._image.publish)
+                {
+                    this._message_img.header.stamp.sec = sec;
+                    this._message_img.header.stamp.nanosec = nanosec;
+                    this._message_img.data = _cam.data_img;
+                    _ros.Send(this._image.topicName+"/compressed", this._message_img);
                 }
             }
         }
