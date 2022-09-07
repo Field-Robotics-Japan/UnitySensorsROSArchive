@@ -83,10 +83,15 @@ namespace FRJ.Sensor
             }
             if (_image.publish)
             {
+                _cam.useImage = true;
                 this._ros.RegisterPublisher<CompressedImageMsg>(this._image.topicName+"/compressed");
                 this._message_img = new CompressedImageMsg();
                 this._message_img.header.frame_id = this._image.frameId;
                 this._message_img.format = "jpeg";
+            }
+            else
+            {
+                _cam.useImage = false;
             }
         }
 
