@@ -59,10 +59,10 @@ public class IMUPublisher : MonoBehaviour
             uint nanosec = (uint)((this._timeStamp - sec) * 1e+9);
             this._message.header.stamp.sec = sec;
             this._message.header.stamp.nanosec = nanosec;
-            Quaternion<FLU> orientation_ros = new Quaternion<FLU>(this._imu.GeometryQuaternion.x,
-                                                                  this._imu.GeometryQuaternion.y,
-                                                                  this._imu.GeometryQuaternion.z,
-                                                                  this._imu.GeometryQuaternion.w).To<FLU>();
+            Quaternion<FLU> orientation_ros = new Quaternion(this._imu.GeometryQuaternion.x,
+                                                             this._imu.GeometryQuaternion.y,
+                                                             this._imu.GeometryQuaternion.z,
+                                                             this._imu.GeometryQuaternion.w).To<FLU>();
             QuaternionMsg orientation =
                 new QuaternionMsg(orientation_ros.x,
                                   orientation_ros.y,
